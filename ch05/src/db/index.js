@@ -2,12 +2,16 @@ const db = require('mongoose');
 
 let mongoUrl;
 async function connect({ mongo: { url } }) {
-    mongoUrl = url;
-    try {
-        await db.connect(mongoUrl);
-    } catch (err) {
-        setTimeout(connect, 8000);
-    }
+  mongoUrl = url;
+  
+  try {
+    await db.connect(mongoUrl);
+  } 
+  catch (err) {
+    console.log('MongoDB connection unsuccessful, retry after 8 seconds.', err);
+    setTimeout(connect, 8000);
+    throw err;
+  }
 }
 
 const dbConnection = db.connection;
