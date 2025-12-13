@@ -14,7 +14,7 @@ app.get('/users/:id', async (req, res) => {
     }
 
     try {
-        const response = await axios.get(`https://api.github.com/users/${userId}`);
+        const response = await axios.get(`https://api.github.com/users/${encodeURIComponent(userId)}`);
         const user = response.data;
         if (user) {
             res.json(user); // Send the retrieved employee data as JSON response
