@@ -35,6 +35,12 @@ app.use(cache('5 minutes'));
 
 app.get('/users/:id', limiter, async (req, res) => {
     const id = req.params.id;
+
+    // Only allow alphanumeric IDs, underscores or hyphens (adjust pattern as needed)
+    if (!/^[a-zA-Z0-9_-]+$/.test(id)) {
+        return res.status(400).json({ success: false, message: 'Invalid user ID format.' });
+    }
+
     try {
         const aggregatedData = await getAggregatedData(id);
         res.json(aggregatedData);
