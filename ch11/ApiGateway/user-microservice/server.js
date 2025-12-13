@@ -7,6 +7,12 @@ const port = 3002; // Port on which the server will listen
 app.get('/users/:id', async (req, res) => {
     const userId = req.params.id; // Extract the ID from the URL parameter
 
+    // Validate GitHub username: 1-39 chars, alphanumeric or hyphens, cannot start or end with hyphen, no consecutive hyphens
+    const githubUsernameRegex = /^(?!-)(?!.*--)[a-zA-Z\d-]{1,39}(?<!-)$/;
+    if (!githubUsernameRegex.test(userId)) {
+        return res.status(400).send('Invalid GitHub username');
+    }
+
     try {
         const response = await axios.get(`https://api.github.com/users/${userId}`);
         const user = response.data;
