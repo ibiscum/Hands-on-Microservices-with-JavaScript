@@ -1,7 +1,7 @@
-const accountService = require('../services/account');
+import { getAccountById as _getAccountById, getAllAccounts, createAccount as _createAccount, deleteAccountById as _deleteAccountById, updateAccountById as _updateAccountById, errorCodes } from '../services/account.js';
 
-const getAccountById = async (req, res) => {
-    const result = await accountService.getAccountById(req.params.id);
+export const getAccountById = async (req, res) => {
+    const result = await _getAccountById(req.params.id);
 
     if (result) {
         res.status(200).json({ success: true, account: mapToResponse(result) });
@@ -10,14 +10,14 @@ const getAccountById = async (req, res) => {
     }
 };
 
-const getAccounts = async (req, res) => {
-    const result = await accountService.getAllAccounts();
+export const getAccounts = async (req, res) => {
+    const result = await getAllAccounts();
     res.status(200).json({ success: true, account: result.map(x => mapToResponse(x)) });
 };
 
-const createAccount = async (req, res) => {
+export const createAccount = async (req, res) => {
     const { name, number, type, status } = req.body;
-    const result = await accountService.createAccount(name, number, type, status);
+    const result = await _createAccount(name, number, type, status);
 
     res.status(201).json({
         success: true,
@@ -25,9 +25,9 @@ const createAccount = async (req, res) => {
     });
 };
 
-const deleteAccountById = async (req, res) => {
-    const isDeleted = await accountService.deleteAccountById(req.params.id);
- 
+export const deleteAccountById = async (req, res) => {
+    const isDeleted = await _deleteAccountById(req.params.id);
+
     if(isDeleted)
      res.status(204).json({
          success: true
@@ -36,26 +36,26 @@ const deleteAccountById = async (req, res) => {
      res.status(400).json({ success: false, message: 'No valid data to delete' });
  };
 
-const updateAccountById = async (req, res) => {
-    const result = await accountService.updateAccountById(req.params.id, req.body);
+export const updateAccountById = async (req, res) => {
+    const result = await _updateAccountById(req.params.id, req.body);
     if (result.error) {
         switch (result.code) {
-            case accountService.errorCodes.NO_VALID_DATA_TO_UPDATE:
+            case errorCodes.NO_VALID_DATA_TO_UPDATE:
                 res.status(400).json({ success: false, message: result.error });
                 return;
-            case accountService.errorCodes.INVALID_STATUS_CODE:
+            case errorCodes.INVALID_STATUS_CODE:
                 res.status(400).json({ success: false, message: 'invalid status' });
                 return;
-            case accountService.errorCodes.INVALID_TYPE_CODE:
+            case errorCodes.INVALID_TYPE_CODE:
                 res.status(400).json({ success: false, message: 'invalid type' });
                 return;
-            case accountService.errorCodes.INVALID_ACCOUNT:
+            case errorCodes.INVALID_ACCOUNT:
                 res.status(404).json({ success: false, message: 'Account not found' });
                 return;
-            case accountService.errorCodes.INVALID_STATE_TRANSITION:
+            case errorCodes.INVALID_STATE_TRANSITION:
                 res.status(400).json({ success: false, message: result.error });
                 return;
-            case accountService.errorCodes.INVALID_TYPE_TRANSITION:
+            case errorCodes.INVALID_TYPE_TRANSITION:
                 res.status(400).json({ success: false, message: result.error });
                 return;
             default:
@@ -84,11 +84,3 @@ function mapToResponse(account) {
         status
     };
 }
-
-module.exports = {
-    getAccountById,
-    getAccounts,
-    createAccount,
-    deleteAccountById,
-    updateAccountById,
-};

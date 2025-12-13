@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const rateLimit = require('express-rate-limit');
-const accountController = require('../../../controllers/account');
-const accountValidation = require('../../../validation/account');
-const validate = require('../../../middlewares/validate');
+import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
+import { getAccounts, getAccountById, createAccount, updateAccountById, deleteAccountById } from '../../../controllers/account.js';
+import { getAccountById as _getAccountById, createAccount as _createAccount, updateAccountById as _updateAccountById, deleteAccountById as _deleteAccountById } from '../../../validation/account.js';
+import validate from '../../../middlewares/validate.js';
 
 // Create a rate limiter for the GET / route
 const getAccountsLimiter = rateLimit({
@@ -12,9 +12,9 @@ const getAccountsLimiter = rateLimit({
 });
 
 const router = Router();
-router.get('/', getAccountsLimiter, accountController.getAccounts);
-router.get('/:id', getAccountsLimiter, validate(accountValidation.getAccountById), accountController.getAccountById);
-router.post('/', validate(accountValidation.createAccount), accountController.createAccount);
-router.put('/:id', validate(accountValidation.updateAccountById), accountController.updateAccountById);
-router.delete('/:id', validate(accountValidation.deleteAccountById), accountController.deleteAccountById)
-module.exports = router;
+router.get('/', getAccountsLimiter, getAccounts);
+router.get('/:id', getAccountsLimiter, validate(_getAccountById), getAccountById);
+router.post('/', validate(_createAccount), createAccount);
+router.put('/:id', validate(_updateAccountById), updateAccountById);
+router.delete('/:id', validate(_deleteAccountById), deleteAccountById)
+export default router;

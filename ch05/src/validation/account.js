@@ -1,43 +1,37 @@
-import { string, object } from 'joi';
 
-const objectId = string().regex(/^[0-9a-fA-F]{24}$/);
+import Joi from 'joi';
 
-const getAccountById = {
-  params: object().keys({
+const objectId = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
+
+export const getAccountById = {
+  params: Joi.object().keys({
     id: objectId.required(),
   }),
 };
 
-const deleteAccountById = {
-  params: object().keys({
+export const deleteAccountById = {
+  params: Joi.object().keys({
     id: objectId.required(),
   }),
 };
 
-const createAccount = {
-  body: object().keys({
-    name: string().required(),
-    number: string().required(),
-    status: string().valid('new', 'active', 'completed', 'cancelled').optional(),
-    type: string().valid('root', 'sub').optional(),
+export const createAccount = {
+  body: Joi.object().keys({
+    name: Joi.string().required(),
+    number: Joi.string().required(),
+    status: Joi.string().valid('new', 'active', 'completed', 'cancelled').optional(),
+    type: Joi.string().valid('root', 'sub').optional(),
   }),
 };
 
-const updateAccountById = {
-  params: object().keys({
+export const updateAccountById = {
+  params: Joi.object().keys({
     id: objectId.required(),
   }),
-  body: object().keys({
-    name: string().required(),
-    number: string().required(),
-    status: string().valid('new', 'active', 'completed', 'cancelled').optional(),
-    type: string().valid('root', 'sub').optional(),
+  body: Joi.object().keys({
+    name: Joi.string().required(),
+    number: Joi.string().required(),
+    status: Joi.string().valid('new', 'active', 'completed', 'cancelled').optional(),
+    type: Joi.string().valid('root', 'sub').optional(),
   }),
-};
-
-export default {
-  getAccountById,
-  createAccount,
-  deleteAccountById,
-  updateAccountById,
 };

@@ -1,8 +1,10 @@
 {
-  "name": "accountmicroservice",
+  "name": "ch05-accountmicroservice",
   "version": "1.0.0",
   "description": "simple account microservice with crud functionalities",
   "main": "index.js",
+  "type":"module",
+  "private":true,
   "scripts": {
     "start": "node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,5 +1,5 @@
 import express, { json } from 'express';
-import v1 from './routes/v1';
+import v1 from './routes/v1/index.js';
 
 const app = express();
 

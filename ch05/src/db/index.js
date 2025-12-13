@@ -1,12 +1,13 @@
-const db = require('mongoose');
+import pkg from 'mongoose';
+const { connect: _connect, connection, disconnect: _disconnect } = pkg;
 
 let mongoUrl;
-async function connect({ mongo: { url } }) {
+export async function connect({ mongo: { url } }) {
   mongoUrl = url;
-  
+
   try {
-    await db.connect(mongoUrl);
-  } 
+    await _connect(mongoUrl);
+  }
   catch (err) {
     console.log('MongoDB connection unsuccessful, retry after 8 seconds.', err);
     setTimeout(connect, 8000);
@@ -14,14 +15,9 @@ async function connect({ mongo: { url } }) {
   }
 }
 
-const dbConnection = db.connection;
+const dbConnection = connection;
 
-function disconnect() {
+export function disconnect() {
     dbConnection.removeAllListeners();
-    return db.disconnect();
+    return _disconnect();
 }
-
-module.exports = {
-    connect,
-    disconnect,
-};

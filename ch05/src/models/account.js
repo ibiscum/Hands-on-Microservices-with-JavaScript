@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose, { model } from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -31,4 +31,4 @@ const AccountSchema = new Schema(
     { optimisticConcurrency: true },
 );
 
-module.exports = mongoose.model('account', AccountSchema);
+export default model('account', AccountSchema);
