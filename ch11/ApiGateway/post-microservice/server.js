@@ -7,6 +7,11 @@ const port = 3001; // Port on which the server will listen
 app.get('/posts/:id', async (req, res) => {
   const postId = req.params.id; // Extract the ID from the URL parameter
 
+  // Input validation: Allow only positive integers for postId
+  if (!/^\d+$/.test(postId)) {
+    return res.status(400).send('Invalid post ID');
+  }
+
   try {
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`);
     const post = response.data;
