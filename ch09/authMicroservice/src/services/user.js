@@ -11,7 +11,7 @@ const getUserById = async (userId) => {
 };
 
 const getUserByEmail = async (email) => {
-    return await User.findOne({ email: email });
+    return await User.findOne({ email: { $eq: email } });
 };
 // ... Add methods for other user operations (e.g., update, delete)
 module.exports = { createUser, getUserById, getUserByEmail };
