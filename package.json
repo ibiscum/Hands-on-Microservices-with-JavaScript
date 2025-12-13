@@ -1,0 +1,25 @@
+{
+  "name": "hands-on-microservices-with-javascript",
+  "version": "1.0.0",
+  "description": "Hands-on Microservices with JavaScript, published by Packt",
+  "homepage": "https://github.com/ibiscum/Hands-on-Microservices-with-JavaScript#readme",
+  "bugs": {
+    "url": "https://github.com/ibiscum/Hands-on-Microservices-with-JavaScript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibiscum/Hands-on-Microservices-with-JavaScript.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint --fix .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "globals": "^16.5.0"
+  }
+}

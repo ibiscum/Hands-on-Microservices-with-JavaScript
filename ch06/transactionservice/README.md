@@ -71,3 +71,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Prisma
+
+	npm install prisma @types/node @types/pg --save-dev
+  	npm install @prisma/client @prisma/adapter-pg pg dotenv
