@@ -13,7 +13,7 @@ const getAccountsLimiter = rateLimit({
 
 const router = Router();
 router.get('/', getAccountsLimiter, accountController.getAccounts);
-router.get('/:id', validate(accountValidation.getAccountById), accountController.getAccountById);
+router.get('/:id', getAccountsLimiter, validate(accountValidation.getAccountById), accountController.getAccountById);
 router.post('/', validate(accountValidation.createAccount), accountController.createAccount);
 router.put('/:id', validate(accountValidation.updateAccountById), accountController.updateAccountById);
 router.delete('/:id', validate(accountValidation.deleteAccountById), accountController.deleteAccountById)
