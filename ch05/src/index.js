@@ -7,6 +7,7 @@ import {createConfig} from './config/config.js';
 async function execute() {
   const configPath = path.join(import.meta.dirname, '../configs/.env');
   const appConfig = createConfig(configPath);
+  console.log('appConfig', appConfig);
 
   await connect(appConfig);
   const server = app.listen(appConfig.port, () => {
@@ -25,13 +26,13 @@ async function execute() {
     }
   };
 
-    const unexpectedError = (error) => {
-        console.log('unhandled error', { error });
-        closeServer();
-    };
+  const unexpectedError = (error) => {
+    console.log('unhandled error', { error });
+    closeServer();
+  };
 
-    process.on('uncaughtException', unexpectedError);
-    process.on('unhandledRejection', unexpectedError);
+  process.on('uncaughtException', unexpectedError);
+  process.on('unhandledRejection', unexpectedError);
 }
 
 execute();

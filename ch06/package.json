@@ -1,9 +1,10 @@
 {
-  "name": "transactionservice",
+  "name": "ch06-transactionservice",
   "version": "0.0.1",
   "description": "",
   "author": "",
   "private": true,
+  "type": "module",
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
@@ -37,7 +38,7 @@
     "@nestjs/testing": "^11.1.9",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.0.1",
+    "@types/node": "^25.0.2",
     "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
     "@typescript-eslint/parser": "^8.49.0",

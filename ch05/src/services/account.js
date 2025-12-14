@@ -2,17 +2,17 @@ import account from '../models/account.js';
 
 //get account info by id
 export function getAccountById(id) {
-    return account.findById(id);
+  return account.findById(id);
 }
 
 //get all account information
 export function getAllAccounts() {
-    return account.find({});
+  return account.find({});
 }
 
 //create account based on name,number,type and status
 export function createAccount(name, number, type, status) {
-    return account.create({ number, name, type, status });
+  return account.create({ number, name, type, status });
 }
 
 //delete account by account id

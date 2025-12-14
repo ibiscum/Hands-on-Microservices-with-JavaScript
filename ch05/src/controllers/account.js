@@ -1,4 +1,11 @@
-import { getAccountById as _getAccountById, getAllAccounts, createAccount as _createAccount, deleteAccountById as _deleteAccountById, updateAccountById as _updateAccountById, errorCodes } from '../services/account.js';
+import {
+  getAccountById as _getAccountById,
+  getAllAccounts,
+  createAccount as _createAccount,
+  deleteAccountById as _deleteAccountById,
+  updateAccountById as _updateAccountById,
+  errorCodes
+} from '../services/account.js';
 
 export const getAccountById = async (req, res) => {
     const result = await _getAccountById(req.params.id);
