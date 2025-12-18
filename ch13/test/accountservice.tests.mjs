@@ -1,12 +1,13 @@
+import {describe, afterEach, beforeEach, it} from 'mocha';
 import * as chai from 'chai';
 import sinon from 'sinon';
 const expect = chai.expect;
 import * as accountService from '../src/services/account.js';
 import account from '../src/models/account.js'
-const { errorCodes } = accountService.default;
+// const { errorCodes } = accountService.default;
 describe('getAccountById service', () => {
     let findByIdStub;
- 
+
     beforeEach(() => {
         findByIdStub = sinon.stub(account, 'findById');
     });

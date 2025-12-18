@@ -6,6 +6,7 @@ async function connect({ mongo: { url } }) {
     try {
         await db.connect(mongoUrl);
     } catch (err) {
+        console.log('MongoDB connection unsuccessful, retry after 8 seconds.', err);
         setTimeout(connect, 8000);
     }
 }
