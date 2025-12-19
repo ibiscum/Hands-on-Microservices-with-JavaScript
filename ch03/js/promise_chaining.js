@@ -1,3 +1,6 @@
+// Import or define the required functions
+import { addPromisifiedScript, execute, addSuccessMessage, addErrorMessage } from './app.js';
+
 addPromisifiedScript("js/app.js")
     .then(() =>
         new Promise((resolve) => {

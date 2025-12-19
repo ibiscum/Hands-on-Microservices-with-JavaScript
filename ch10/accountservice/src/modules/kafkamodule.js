@@ -17,7 +17,10 @@ const consumerModule = async () => {
     await consumer.subscribe({ topic: appConfig.kafka.topic });
 
     await consumer.run({
-        eachMessage: async ({ topic, partition, message }) => {
+        eachMessage: async ({ 
+            // topic, 
+            // partition, 
+            message }) => {
 
             const transaction = JSON.parse(message.value.toString());
             const accountId = transaction.accountId;

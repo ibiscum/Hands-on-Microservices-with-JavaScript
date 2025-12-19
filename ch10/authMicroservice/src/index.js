@@ -22,6 +22,7 @@ async function execute() {
     };
 
     const unexpectedError = (error) => {
+        console.error('Unexpected error', error);
         closeServer();
     };
 

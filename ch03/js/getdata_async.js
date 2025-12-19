@@ -1,4 +1,7 @@
-async function getData() {
+const url = 'https://jsonplaceholder.typicode.com';
+const paths = ['/posts/1', '/posts/2', '/posts/3'];
+
+export async function getData() {
     const response = await fetch(url.concat(paths[0]));
     const data = await response.json();
     console.log(data);

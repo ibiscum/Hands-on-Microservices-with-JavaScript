@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 function take(object, keys) {
-    return Object.assign({}, ...keys.filter(key => object.hasOwnProperty(key))
+    return Object.assign({}, ...keys.filter(key => Object.prototype.hasOwnProperty.call(object, key))
         .map(key => ({ [key]: object[key] })));
 }
 

@@ -25,6 +25,7 @@ async function execute() {
     };
 
     const unexpectedError = (error) => {
+        console.error('Unexpected error', error);
         //logger.error('unhandled error', { stack: { error } });
         closeServer();
     };

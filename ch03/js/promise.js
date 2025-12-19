@@ -1,6 +1,7 @@
+import { addPromisifiedScript, execute, addSuccessMessage, addErrorMessage } from './app.js';
 addPromisifiedScript("js/app.js").then(
-    (resolve) => { }, //success continuation
-    (reject) => { } //error handling
+    () => { }, //success continuation
+    // (reject) => { } //error handling
 );
 
 function delay(ms) {

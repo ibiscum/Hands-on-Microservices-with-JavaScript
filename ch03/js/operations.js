@@ -1,4 +1,4 @@
-function addScript(src, callback) {
+export function addScript(src, callback) {
     let script = document.createElement("script");
     script.src = src;
     script.onload = () => callback(script);
@@ -14,15 +14,15 @@ function addScript(src, callback) {
     document.getElementById(id).appendChild(p);
   }
 
-  function addSuccessMessage(id, message) {
+export function addSuccessMessage(id, message) {
     addAsParagraph(id, message, "success");
   }
 
-  function addErrorMessage(id, message) {
+export function addErrorMessage(id, message) {
     addAsParagraph(id, message, "fail");
   }
 
-  function addPromisifiedScript(src) {
+export function addPromisifiedScript(src) {
     return new Promise(function (resolve, reject) {
       let script = document.createElement("script");
       script.src = src;
