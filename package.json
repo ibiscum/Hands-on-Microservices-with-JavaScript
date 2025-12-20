@@ -14,7 +14,7 @@
   "author": "",
   "type": "module",
   "scripts": {
-    "lint": "eslint --fix .",
+    "lint": "eslint --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

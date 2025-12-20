@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { TransactionModule } from './transaction/transaction.module';
+import { TransactionModule } from './transaction/transaction.module.js';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 // bootstrap function
