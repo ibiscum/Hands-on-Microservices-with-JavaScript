@@ -6,7 +6,7 @@ export function getAccountById(id) {
 }
 
 //get all account information
-export function getAllAccounts() {
+export function getAccounts() {
   return account.find({});
 }
 
@@ -17,90 +17,90 @@ export function createAccount(name, number, type, status) {
 
 //delete account by account id
 export async function deleteAccountById(id) {
-    const deletedAccount = await account.findByIdAndDelete(id);
-    if(deletedAccount)
-     return true;
-     else
-     return false;
- }
+  const deletedAccount = await account.findByIdAndDelete(id);
+  if (deletedAccount)
+    return true;
+  else
+    return false;
+}
 
 //'new', 'active', 'inactive', 'blocked'
 const availableAccountStatusesForUpdate = {
-    new: ['active', 'blocked'],
-    active: ['inactive', 'blocked'],
-    inactive: ['active'],
-    blocked: ['active'],
+  new: ['active', 'blocked'],
+  active: ['inactive', 'blocked'],
+  inactive: ['active'],
+  blocked: ['active'],
 };
 
 //'root', 'sub'
 const availableAccountTypesForUpdate = {
-    root: ['sub'],
-    sub: ['root'],
+  root: ['sub'],
+  sub: ['root'],
 };
 
-export const NO_VALID_DATA_TO_UPDATE = 0;
-export const INVALID_STATUS_CODE = 1;
-export const INVALID_TYPE_CODE = 2;
-export const INVALID_ACCOUNT = 3;
-export const INVALID_STATE_TRANSITION = 4;
-export const INVALID_TYPE_TRANSITION = 5;
+const NO_VALID_DATA_TO_UPDATE = 0;
+const INVALID_STATUS_CODE = 1;
+const INVALID_TYPE_CODE = 2;
+const INVALID_ACCOUNT = 3;
+const INVALID_STATE_TRANSITION = 4;
+const INVALID_TYPE_TRANSITION = 5;
 
 export async function updateAccountById(id, { name, number, type, status }) {
-    if (!name && !number && !type && !status) {
-        return { error: 'provide at least one valid data to be updated', code: NO_VALID_DATA_TO_UPDATE };
+  if (!name && !number && !type && !status) {
+    return { error: 'provide at least one valid data to be updated', code: NO_VALID_DATA_TO_UPDATE };
+  }
+
+  if (status && !(status in availableAccountStatusesForUpdate)) {
+    return { error: 'invalid status for account', code: INVALID_STATUS_CODE };
+  }
+
+  if (type && !(type in availableAccountTypesForUpdate)) {
+    return { error: 'invalid type for account', code: INVALID_TYPE_CODE };
+  }
+
+  const account = await account.findById(id);
+  if (!account) {
+    return { error: 'account not found', code: INVALID_ACCOUNT };
+  }
+
+  //check for available status and transition
+  if (status) {
+    const allowedStatuses = availableAccountStatusesForUpdate[account.status];
+    if (!allowedStatuses.includes(status)) {
+      return {
+        error: `cannot update status from '${account.status}' to '${status}'`,
+        code: INVALID_STATE_TRANSITION,
+      };
     }
+  }
 
-    if (status && !(status in availableAccountStatusesForUpdate)) {
-        return { error: 'invalid status for account', code: INVALID_STATUS_CODE };
+  //check for available type and transition
+  if (type) {
+    const allowedTypes = availableAccountTypesForUpdate[account.type];
+    if (!allowedTypes.includes(type)) {
+      return {
+        error: `cannot update type from '${account.type}' to '${type}'`,
+        code: INVALID_TYPE_TRANSITION,
+      };
     }
+  }
 
-    if (type && !(type in availableAccountTypesForUpdate)) {
-        return { error: 'invalid type for account', code: INVALID_TYPE_CODE };
-    }
+  account.status = status ?? account.status;
+  account.type = type ?? account.type;
+  account.name = name ?? account.name;
+  account.number = number ?? account.number;
+  account.updatedAt = Date.now();
 
-    const account = await account.findById(id);
-    if (!account) {
-        return { error: 'account not found', code: INVALID_ACCOUNT };
-    }
+  await account.save();
 
-    //check for available status and transition
-    if (status) {
-        const allowedStatuses = availableAccountStatusesForUpdate[account.status];
-        if (!allowedStatuses.includes(status)) {
-            return {
-                error: `cannot update status from '${account.status}' to '${status}'`,
-                code: INVALID_STATE_TRANSITION,
-            };
-        }
-    }
-
-    //check for available type and transition
-    if (type) {
-        const allowedTypes = availableAccountTypesForUpdate[account.type];
-        if (!allowedTypes.includes(type)) {
-            return {
-                error: `cannot update type from '${account.type}' to '${type}'`,
-                code: INVALID_TYPE_TRANSITION,
-            };
-        }
-    }
-
-    account.status = status ?? account.status;
-    account.type = type ?? account.type;
-    account.name = name ?? account.name;
-    account.number = number ?? account.number;
-    account.updatedAt = Date.now();
-
-    await account.save();
-
-    return account;
+  return account;
 }
 
 export const errorCodes = {
-        NO_VALID_DATA_TO_UPDATE,
-        INVALID_STATUS_CODE,
-        INVALID_TYPE_CODE,
-        INVALID_ACCOUNT,
-        INVALID_STATE_TRANSITION,
-        INVALID_TYPE_TRANSITION,
-    };
+  NO_VALID_DATA_TO_UPDATE,
+  INVALID_STATUS_CODE,
+  INVALID_TYPE_CODE,
+  INVALID_ACCOUNT,
+  INVALID_STATE_TRANSITION,
+  INVALID_TYPE_TRANSITION,
+};
