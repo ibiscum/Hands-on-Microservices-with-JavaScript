@@ -28,3 +28,12 @@ Create account with service.
 Get all accounts.
 
 	curl localhost:3001/v1/accounts
+
+Get account by ID.
+
+	curl localhost:3001/v1/accounts/6946d485b7030ddb47d597a9
+
+Change account by ID.
+
+	curl -H "Content-Type: application/json" -d '{ "name":"updated account", "number":"AE33333" }' localhost:3001/v1/accounts/6946d485b7030ddb47d597a9
+

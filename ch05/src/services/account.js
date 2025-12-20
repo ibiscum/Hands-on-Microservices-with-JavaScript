@@ -46,6 +46,7 @@ const INVALID_STATE_TRANSITION = 4;
 const INVALID_TYPE_TRANSITION = 5;
 
 export async function updateAccountById(id, { name, number, type, status }) {
+  
   if (!name && !number && !type && !status) {
     return { error: 'provide at least one valid data to be updated', code: NO_VALID_DATA_TO_UPDATE };
   }
@@ -58,12 +59,17 @@ export async function updateAccountById(id, { name, number, type, status }) {
     return { error: 'invalid type for account', code: INVALID_TYPE_CODE };
   }
 
-  const account = await account.findById(id);
+  console.log('Updating account:', id, { name, number, type, status });
+
+  const account = await getAccountById(id)
+
   if (!account) {
     return { error: 'account not found', code: INVALID_ACCOUNT };
   }
 
-  //check for available status and transition
+  console.log('Found account:', account);
+
+  // check for available status and transition
   if (status) {
     const allowedStatuses = availableAccountStatusesForUpdate[account.status];
     if (!allowedStatuses.includes(status)) {
@@ -74,7 +80,7 @@ export async function updateAccountById(id, { name, number, type, status }) {
     }
   }
 
-  //check for available type and transition
+  // check for available type and transition
   if (type) {
     const allowedTypes = availableAccountTypesForUpdate[account.type];
     if (!allowedTypes.includes(type)) {
@@ -92,7 +98,8 @@ export async function updateAccountById(id, { name, number, type, status }) {
   account.updatedAt = Date.now();
 
   await account.save();
-
+  console.log('Updated account:', account);
+  
   return account;
 }
 
