@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { TransactionService } from './transaction.service.js';
-import { CreateTransactionDto } from './dto/create-transaction.dto.js';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { TransactionService } from './transaction.service';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 @Controller('transaction')
 export class TransactionController {
     transactionService;
@@ -22,6 +23,20 @@ export class TransactionController {
     @Param('id')
     id) {
         return this.transactionService.findOne(+id);
+    }
+    @Patch(':id')
+    update(
+    @Param('id')
+    id, 
+    @Body()
+    updateTransactionDto) {
+        return this.transactionService.update(+id, updateTransactionDto);
+    }
+    @Delete(':id')
+    remove(
+    @Param('id')
+    id) {
+        return this.transactionService.remove(+id);
     }
 }
 //# sourceMappingURL=transaction.controller.js.map

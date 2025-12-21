@@ -1,12 +1,10 @@
-import { CreateTransactionDto } from './dto/create-transaction.dto.js';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { HttpService } from '@nestjs/axios';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 export declare class TransactionService {
-    private readonly prisma;
-    private readonly httpService;
-    constructor(prisma: PrismaService, httpService: HttpService);
-    create(createTransactionDto: CreateTransactionDto): Promise<any>;
-    findAll(): any;
-    findOne(id: number): any;
+    create(createTransactionDto: CreateTransactionDto): string;
+    findAll(): string;
+    findOne(id: number): string;
+    update(id: number, updateTransactionDto: UpdateTransactionDto): string;
+    remove(id: number): string;
 }
 //# sourceMappingURL=transaction.service.d.ts.map

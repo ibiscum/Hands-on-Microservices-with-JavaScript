@@ -1,47 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTransactionDto } from './dto/create-transaction.dto.js';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { HttpService } from '@nestjs/axios';
-import { AccountApiResponse } from './dto/account.dto.js';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 
 @Injectable()
 export class TransactionService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly httpService: HttpService,
-  ) {}
-  
- async create(createTransactionDto: CreateTransactionDto) {
-  const { accountId, description } = createTransactionDto;
-  let accountApiResponse = await this.httpService.axiosRef.get<AccountApiResponse>(
-      `http://localhost:3001/v1/accounts/${createTransactionDto.accountId}`,
-      );
-     const {account} = accountApiResponse.data;
-     if (!account) {
-      throw new Error('Transaction creation failed: Account not found');
-    }
-      if(account.status == 'new' || account.status == 'active')
-        {
-          return this.prisma.transaction.create({
-            data: { accountId, description, status: 'CREATED' },
-          });
-        }
-        else
-        {
-          return this.prisma.transaction.create({
-            data: { accountId, description, status: 'FAILED' },
-          });
-        }
-     
+  create(createTransactionDto: CreateTransactionDto) {
+    return 'This action adds a new transaction';
   }
 
   findAll() {
-    return this.prisma.transaction.findMany();
+    return `This action returns all transaction`;
   }
 
   findOne(id: number) {
-    return this.prisma.transaction.findUnique({
-      where: { id },
-    });
+    return `This action returns a #${id} transaction`;
+  }
+
+  update(id: number, updateTransactionDto: UpdateTransactionDto) {
+    return `This action updates a #${id} transaction`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} transaction`;
   }
 }

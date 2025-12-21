@@ -1,41 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTransactionDto } from './dto/create-transaction.dto.js';
-import { PrismaService } from "../prisma/prisma.service";
-import { HttpService } from '@nestjs/axios';
-import { AccountApiResponse } from './dto/account.dto.js';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
 @Injectable()
 export class TransactionService {
-    prisma;
-    httpService;
-    constructor(prisma, httpService) {
-        this.prisma = prisma;
-        this.httpService = httpService;
-    }
-    async create(createTransactionDto) {
-        const { accountId, description } = createTransactionDto;
-        let accountApiResponse = await this.httpService.axiosRef.get(`http://localhost:3001/v1/accounts/${createTransactionDto.accountId}`);
-        const { account } = accountApiResponse.data;
-        if (!account) {
-            throw new Error('Transaction creation failed: Account not found');
-        }
-        if (account.status == 'new' || account.status == 'active') {
-            return this.prisma.transaction.create({
-                data: { accountId, description, status: 'CREATED' },
-            });
-        }
-        else {
-            return this.prisma.transaction.create({
-                data: { accountId, description, status: 'FAILED' },
-            });
-        }
+    create(createTransactionDto) {
+        return 'This action adds a new transaction';
     }
     findAll() {
-        return this.prisma.transaction.findMany();
+        return `This action returns all transaction`;
     }
     findOne(id) {
-        return this.prisma.transaction.findUnique({
-            where: { id },
-        });
+        return `This action returns a #${id} transaction`;
+    }
+    update(id, updateTransactionDto) {
+        return `This action updates a #${id} transaction`;
+    }
+    remove(id) {
+        return `This action removes a #${id} transaction`;
     }
 }
 //# sourceMappingURL=transaction.service.js.map
