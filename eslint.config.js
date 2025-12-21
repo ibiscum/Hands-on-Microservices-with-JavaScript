@@ -3,7 +3,7 @@ import globals from "globals";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["**/dist/", "**/node_modules/", "**/configs/", "./ch06/transactionservice/transaction/"]),
+  globalIgnores(["**/dist/", "**/node_modules/", "**/configs/", "**/transactionservice/", ]),
 
   {
     files: ["**/*.{js,mjs,cjs}"],
