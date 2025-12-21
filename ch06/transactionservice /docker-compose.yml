@@ -4,6 +4,7 @@ networks:
 services:
   postgres:
     image: postgres:latest
+    container_name: transaction-postgres
     env_file:
       - .env
     environment:
@@ -19,6 +20,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
+    container_name: transaction-pgadmin
     env_file:
       - .env
     environment:

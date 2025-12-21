@@ -76,3 +76,23 @@ Nest is [MIT licensed](LICENSE).
 
 	npm install prisma @types/node @types/pg --save-dev
   	npm install @prisma/client @prisma/adapter-pg pg dotenv
+
+	npx prisma db seed
+
+```console
+Loaded Prisma config from prisma.config.ts.
+
+Running seed command `tsx ./prisma/seed.ts` ...
+{
+  id: 1,
+  status: 'CREATED',
+  accountId: '662c081370bd2ba6b5f04e94',
+  description: 'simple transaction',
+  createdAt: 2025-12-21T10:05:01.011Z,
+  updatedAt: 2025-12-21T10:05:01.011Z
+}
+```
+
+## Service layer
+
+	npx nest generate module prisma
