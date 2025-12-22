@@ -1,12 +1,10 @@
 networks:
-  my-app-network:  # Define the network name exactly as used later
-
+  my-app-network: # Define the network name exactly as used later
 services:
   postgres:
     image: postgres:latest
-    container_name: transaction-postgres
     env_file:
-      - .env
+    - .env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -16,13 +14,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
     networks:
-      - my-app-network  # Add the service to the network
-
+      - my-app-network # Add the service to the network
   pgadmin:
-    image: dpage/pgadmin4
-    container_name: transaction-pgadmin
+    image: dpage/pgadmin4:latest
     env_file:
-      - .env
+    - .env
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
@@ -40,7 +36,6 @@ services:
     volumes:
       - postgres_data:/var/lib/pgadmin/data
     networks:
-      - my-app-network  # Add the service to the network
-
+      - my-app-network # Add the service to the network
 volumes:
   postgres_data:
