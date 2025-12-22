@@ -1,21 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
-// import { Transaction } from '../../generated/prisma/client.js';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class TransactionService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private httpService: HttpService,
+  ) {}
 
   create(createTransactionDto: CreateTransactionDto) {
     console.log('This action adds a new transaction');
+    const { accountId, description } = createTransactionDto;
     return this.prisma.transaction.create({
       data: {
-        status: createTransactionDto.status,
+        accountID: createTransactionDto.accountID,
         description: createTransactionDto.description,
       },
     });
-    return 'This action adds a new transaction';
   }
 
   findAll() {
