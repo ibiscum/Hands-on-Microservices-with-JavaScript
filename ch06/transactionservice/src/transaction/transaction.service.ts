@@ -12,11 +12,11 @@ export class TransactionService {
 
   create(createTransactionDto: CreateTransactionDto) {
     console.log('This action adds a new transaction');
-    const { accountId, description } = createTransactionDto;
     return this.prisma.transaction.create({
       data: {
-        accountID: createTransactionDto.accountID,
         description: createTransactionDto.description,
+        accountId: createTransactionDto.accountId,
+        status: createTransactionDto.status,
       },
     });
   }
