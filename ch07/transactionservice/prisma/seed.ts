@@ -1,30 +1,32 @@
 // prisma/seed.ts
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "../generated/prisma/client.js";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-// initialize Prisma Client
-const prismaClient = new PrismaClient();
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const prismaClient = new PrismaClient({ adapter });
 
 async function seedData() {
   // create two dummy recipes
   const first_transaction = await prismaClient.transaction.upsert({
-    where: { id:1 },
+    where: { id: 1 },
     update: {},
     create: {
-      id:1,
-      status: 'CREATED',
-      accountId: '662c081370bd2ba6b5f04e94',
-      description: 'simple transaction',
-    }
+      id: 1,
+      status: "CREATED",
+      accountId: "662c081370bd2ba6b5f04e94",
+      description: "simple transaction",
+    },
   });
-
- 
 
   console.log(first_transaction);
 }
 
 // execute the seed function
 seedData()
-  .catch(e => {
+  .catch((e) => {
     console.error(e);
     process.exit(1);
   })

@@ -1,68 +1,26 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from "@nestjs/common";
-import { CreateTransactionDto } from "./dto/create-transaction.dto";
-import { PrismaService } from "src/prisma/prisma.service";
-import { HttpService } from "@nestjs/axios";
-import { AccountApiResponse } from "./dto/account.dto";
-import { KafkaService } from "src/kafka/kafka.service";
-import { Status } from "@prisma/client";
+import { CreateTransactionDto } from "./dto/create-transaction.dto.js";
+import { UpdateTransactionDto } from "./dto/update-transaction.dto.js";
+
 @Injectable()
 export class TransactionService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly httpService: HttpService,
-    private readonly kafkaService: KafkaService
-  ) {}
-
-  async create(createTransactionDto: CreateTransactionDto) {
-    const { accountId, description } = createTransactionDto;
-    let accountApiResponse = null;
-    try
-    {
-    accountApiResponse = await this.httpService.axiosRef.get<AccountApiResponse>(
-        `http://localhost:3001/v1/accounts/${accountId}`
-      );
-    }
-    catch(e) {
-      throw new Error(e.message);
-    }
-    const { account } = accountApiResponse.data;
-    if (!account) {
-      throw new Error("Transaction creation failed: Account not found");
-    }
-    if (account.status == "new" || account.status == "active") {
-      return this.prisma.transaction.create({
-        data: { accountId, description, status: "CREATED" },
-      });
-    } else {
-      return this.prisma.transaction.create({
-        data: { accountId, description, status: "FAILED" },
-      });
-    }
+  create(createTransactionDto: CreateTransactionDto) {
+    return "This action adds a new transaction";
   }
 
   findAll() {
-    return this.prisma.transaction.findMany();
+    return `This action returns all transaction`;
   }
 
   findOne(id: number) {
-    return this.prisma.transaction.findUnique({
-      where: { id },
-    });
+    return `This action returns a #${id} transaction`;
   }
 
-  async fraud(id: number) {
-    const transaction = await this.findOne(id);
+  update(id: number, updateTransactionDto: UpdateTransactionDto) {
+    return `This action updates a #${id} transaction`;
+  }
 
-    if (transaction.status !== "FRAUD" && transaction.status !== "FAILED") {
-      const newTransaction = await this.prisma.transaction.update({
-        where: { id },
-        data: { status: "FRAUD" },
-      });
-
-      this.kafkaService.send(newTransaction, null);
-
-      return newTransaction;
-    } else throw new Error("Transaction is not in a valid status");
+  remove(id: number) {
+    return `This action removes a #${id} transaction`;
   }
 }

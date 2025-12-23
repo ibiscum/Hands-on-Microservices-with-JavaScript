@@ -1,27 +1,23 @@
-/* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Param, HttpStatus, Res } from '@nestjs/common';
-import { TransactionService } from './transaction.service';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { Response } from 'express';
-@Controller('transaction')
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from "@nestjs/common";
+import { TransactionService } from "./transaction.service.js";
+import { CreateTransactionDto } from "./dto/create-transaction.dto.js";
+import { UpdateTransactionDto } from "./dto/update-transaction.dto.js";
+
+@Controller("transaction")
 export class TransactionController {
-  constructor(
-    private readonly transactionService: TransactionService  
-  ) {}
+  constructor(private readonly transactionService: TransactionService) {}
 
   @Post()
-  async create(@Body() createTransactionDto: CreateTransactionDto, @Res() response: Response) {
-    try {
-      const result = await this.transactionService.create(createTransactionDto);
-      return response.status(HttpStatus.CREATED).json(result);
-    } catch (e) {
-      return response.status(HttpStatus.NOT_FOUND).json({ message: e.message });
-    }
-  }
-
-  @Post(':id')
-  fraud(@Param('id') id: string) {
-    return this.transactionService.fraud(+id);
+  create(@Body() createTransactionDto: CreateTransactionDto) {
+    return this.transactionService.create(createTransactionDto);
   }
 
   @Get()
@@ -29,8 +25,21 @@ export class TransactionController {
     return this.transactionService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.transactionService.findOne(+id);
+  }
+
+  @Patch(":id")
+  update(
+    @Param("id") id: string,
+    @Body() updateTransactionDto: UpdateTransactionDto,
+  ) {
+    return this.transactionService.update(+id, updateTransactionDto);
+  }
+
+  @Delete(":id")
+  remove(@Param("id") id: string) {
+    return this.transactionService.remove(+id);
   }
 }
