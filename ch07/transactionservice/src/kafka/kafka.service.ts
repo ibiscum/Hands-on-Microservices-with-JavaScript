@@ -1,18 +1,18 @@
-/* eslint-disable prettier/prettier */
-import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Kafka, Producer } from 'kafkajs';
+import { Injectable, OnModuleInit, OnModuleDestroy } from "@nestjs/common";
+import { Kafka, Producer } from "kafkajs";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class KafkaService implements OnModuleInit, OnModuleDestroy {
   private readonly producer: Producer;
   private readonly topic: string;
 
-  constructor(private readonly configService: ConfigService) {
-    const clientId = this.configService.get<string>('KAFKA_CLIENT_ID');
-    const brokers = this.configService.get<string>('KAFKA_BROKERS').split(',');
-    this.topic = this.configService.get<string>('KAFKA_TOPIC');
-
+  constructor(private configService: ConfigService) {
+    const clientId = process.env.KAFKA_CLIENT_ID;
+    const brokers = (process.env.KAFKA_BROKERS ?? "localhost:29092").split(",");
+    console.log(brokers);
+    // const brokers = ["localhost:29092"];
+    this.topic = process.env.KAFKA_TOPIC as string;
     const kafka = new Kafka({ clientId, brokers });
     this.producer = kafka.producer({ retry: { retries: 3 } });
   }

@@ -3,7 +3,7 @@ import { KafkaService } from "./kafka.service.js";
 import { ConfigModule } from "@nestjs/config";
 
 @Module({
-  imports: [ConfigModule],
   providers: [KafkaService],
+  imports: [ConfigModule],
 })
 export class KafkaModule {}
