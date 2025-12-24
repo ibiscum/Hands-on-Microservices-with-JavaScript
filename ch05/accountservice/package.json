@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "simple account microservice with crud functionalities",
   "main": "index.js",
-  "type":"module",
-  "private":true,
+  "type": "module",
+  "private": true,
   "scripts": {
     "start": "node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,9 +22,10 @@
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
     "joi": "^18.0.2",
-    "mongoose": "^9.0.1",
-    "express-rate-limit": "^8.2.1"
+    "kafkajs": "^2.2.4",
+    "mongoose": "^9.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

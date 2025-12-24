@@ -35,14 +35,34 @@ export class TransactionService {
   }
 
   findAll() {
-    return `This action returns all transaction`;
+    console.log(`This action returns all transaction`);
+    return this.prisma.transaction.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} transaction`;
+    console.log(`This action returns a #${id} transaction`);
+
+    return this.prisma.transaction.findUnique({ where: { id: id } });
   }
 
   remove(id: number) {
     return `This action removes a #${id} transaction`;
+  }
+
+  //newly added functionality
+  async fraud(id: number) {
+    const transaction = await this.findOne(id);
+    if (!transaction) {
+      throw new Error("Transaction ID not found");
+    }
+
+    if (transaction.status !== "FRAUD" && transaction.status !== "FAILED") {
+      const newTransaction = this.prisma.transaction.update({
+        where: { id: id },
+        data: { status: "FRAUD" },
+      });
+      await this.kafkaService.send(transaction);
+      return newTransaction;
+    } else throw new Error("Transaction is not in a valid status");
   }
 }

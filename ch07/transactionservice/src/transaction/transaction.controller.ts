@@ -25,4 +25,9 @@ export class TransactionController {
   remove(@Param("id") id: string) {
     return this.transactionService.remove(+id);
   }
+
+  @Post(":id")
+  fraud(@Param("id") id: string) {
+    return this.transactionService.fraud(+id);
+  }
 }
