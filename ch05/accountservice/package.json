@@ -25,7 +25,7 @@
     "express-rate-limit": "^8.2.1",
     "joi": "^18.0.2",
     "kafkajs": "^2.2.4",
-    "mongoose": "^9.0.1"
+    "mongoose": "^9.1.6"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
