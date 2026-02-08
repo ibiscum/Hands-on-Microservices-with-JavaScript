@@ -2,7 +2,7 @@ const userService = require('../services/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const path = require('path');
-const { createConfig } = require('../config/config');
+const { createConfig } = require('../config/config').default;
 // Register a new user
 const createUser = async (req, res) => {
     try {

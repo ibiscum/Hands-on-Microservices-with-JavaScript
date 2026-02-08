@@ -1,8 +1,8 @@
-const { Router } = require('express');
-const userController = require('../../../controllers/user');
-const { loginSchema } = require('../../../validation/user');
-const validate = require('../../../middlewares/validate');
-const rateLimit = require('express-rate-limit');
+import { Router } from 'express';
+import { createUser, loginUser, getAccessTokenbyRefreshToken } from '../../../controllers/user';
+import { loginSchema } from '../../../validation/user';
+import validate from '../../../middlewares/validate';
+import rateLimit from 'express-rate-limit';
 
 // Rate limiter middleware for /token endpoint
 const tokenRateLimiter = rateLimit({
@@ -13,7 +13,7 @@ const tokenRateLimiter = rateLimit({
 
 const router = Router();
 
-router.post('/register', validate(loginSchema), userController.createUser);
-router.post('/login', validate(loginSchema), userController.loginUser);
-router.post('/token', tokenRateLimiter, validate(loginSchema), userController.getAccessTokenbyRefreshToken);
-module.exports = router;
+router.post('/register', validate(loginSchema), createUser);
+router.post('/login', validate(loginSchema), loginUser);
+router.post('/token', tokenRateLimiter, validate(loginSchema), getAccessTokenbyRefreshToken);
+export default router;

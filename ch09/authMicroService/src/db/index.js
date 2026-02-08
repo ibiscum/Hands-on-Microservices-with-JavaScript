@@ -1,24 +1,24 @@
-const db = require('mongoose');
+import mongoose from 'mongoose';
 
 let mongoUrl;
-async function connect({ mongo: { url } }) {
+export  async function connect({ mongo: { url } }) {
     mongoUrl = url;
     try {
-        await db.connect(mongoUrl);
+        await mongoose.connect(mongoUrl);
     } catch (err) {
         console.log('MongoDB connection unsuccessful, retry after 8 seconds.', err);
-        setTimeout(connect, 8000);
+        setTimeout(mongoose.connect, 8000);
     }
 }
 
-const dbConnection = db.connection;
+const dbConnection = mongoose.connection;
 
-function disconnect() {
+export function disconnect() {
     dbConnection.removeAllListeners();
-    return db.disconnect();
+    return mongoose.disconnect();
 }
 
-module.exports = {
-    connect,
-    disconnect,
-};
+// export default {
+//     connect,
+//     disconnect,
+// };

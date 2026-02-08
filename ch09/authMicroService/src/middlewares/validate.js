@@ -1,4 +1,4 @@
-const Joi = require('joi');
+import { compile } from 'joi';
 
 function take(object, keys) {
     return Object.assign({}, ...keys
@@ -16,7 +16,7 @@ function validate(schema) {
         const objectToValidate = take(req, Object.keys(selectedSchema));
 
         // Perform Joi validation with improved error handling
-        const { error, value } = Joi.compile(selectedSchema)
+        const { error, value } = compile(selectedSchema)
             .prefs({ errors: { label: 'key' }, abortEarly: false })
             .validate(objectToValidate);
 
@@ -32,4 +32,4 @@ function validate(schema) {
     };
 }
 
-module.exports = validate;
+export default validate;

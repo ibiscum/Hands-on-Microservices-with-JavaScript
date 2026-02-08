@@ -1,17 +1,18 @@
-const dotenv = require('dotenv');
-const Joi = require('joi');
+import { config } from 'dotenv';
+import pkg from 'joi';
+const { object, number, string } = pkg;
 
-const envVarsSchema = Joi.object()
+const envVarsSchema = object()
     .keys({
-        PORT: Joi.number().default(3006),
-        MONGODB_URL: Joi.string().required().description('Mongo DB url'),
-        SECRET_ACCESS_TOKEN: Joi.string().hex().required(),
-        SECRET_REFRESH_TOKEN: Joi.string().hex().required(),
+        PORT: number().default(3006),
+        MONGODB_URL: string().required().description('Mongo DB url'),
+        SECRET_ACCESS_TOKEN: string().hex().required(),
+        SECRET_REFRESH_TOKEN: string().hex().required(),
     })
     .unknown();
 
-function createConfig(configPath) {
-    dotenv.config({ path: configPath });
+export function createConfig(configPath) {
+    config({ path: configPath });
 
     const { value: envVars, error } = envVarsSchema
         .prefs({ errors: { label: 'key' } })
@@ -33,6 +34,6 @@ function createConfig(configPath) {
     };
 }
 
-module.exports = {
-    createConfig,
-};
+// export default {
+//     createConfig,
+// };

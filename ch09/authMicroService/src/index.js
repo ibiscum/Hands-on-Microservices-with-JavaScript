@@ -1,14 +1,15 @@
 import { join } from 'path';
-import { connect } from './db';
-import { listen } from './app';
-import { createConfig } from './config/config';
+import { connect } from './db/index.js';
+import app from './app.js';
+import { createConfig } from './config/config.js';
 
 async function execute() {
     const configPath = join(import.meta.dirname, '../configs/.env');
     const appConfig = createConfig(configPath);
 
     await connect(appConfig);
-    const server = listen(appConfig.port, () => {
+    const server = app.listen(appConfig.port, () => {
+        console.log(`Server is running on port ${appConfig.port}`);
     });
 
     const closeServer = () => {
