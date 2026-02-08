@@ -1,14 +1,14 @@
-const path = require('path');
-const db = require('./db');
-const app = require('./app');
-const { createConfig } = require('./config/config');
+import { join } from 'path';
+import { connect } from './db';
+import { listen } from './app';
+import { createConfig } from './config/config';
 
 async function execute() {
-    const configPath = path.join(__dirname, '../configs/.env');
+    const configPath = join(import.meta.dirname, '../configs/.env');
     const appConfig = createConfig(configPath);
 
-    await db.connect(appConfig);
-    const server = app.listen(appConfig.port, () => {
+    await connect(appConfig);
+    const server = listen(appConfig.port, () => {
     });
 
     const closeServer = () => {

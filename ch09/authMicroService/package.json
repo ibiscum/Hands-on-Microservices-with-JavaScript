@@ -1,4 +1,11 @@
 {
+  "name": "authmicroservice",
+  "version": "1.0.0",
+  "description": "simple authentication microservice",
+  "main": "index.js",
+  "private":true,
+  "type": "module",
+  
   "scripts": {
     "start": "node src/index.js"
   },
