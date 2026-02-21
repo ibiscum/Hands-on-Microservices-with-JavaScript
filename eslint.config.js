@@ -1,20 +1,27 @@
-import js from "@eslint/js";
+import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
-import { defineConfig, globalIgnores } from "eslint/config";
+import js from "@eslint/js";
+import { globalIgnores } from "eslint/config";
+import pluginCypress from 'eslint-plugin-cypress';
 
-export default defineConfig([
-  globalIgnores(["**/dist/", "**/node_modules/", "**/configs/", "**/transactionservice/", ]),
-
+export default [
+  // add more generic rulesets here, such as:
+  js.configs.recommended,
+  ...pluginVue.configs["flat/recommended"],
+  pluginCypress.configs.recommended,
+  // ...pluginVue.configs['flat/vue2-recommended'], // Use this if you are using Vue.js 2.x.
   {
-    files: ["**/*.{js,mjs,cjs}"],
-    plugins: { js },
-    extends: ["js/recommended"],
+    rules: {
+      // override/add rules settings here, such as:
+      // 'vue/no-unused-vars': 'error'
+    },
     languageOptions: {
+      sourceType: "module",
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...globals.mocha
-      }
-    }
+      },
+    },
   },
-]);
+  globalIgnores(["**/cypress/*", "**/node_modules/*", "**/dist/*", "**/build/*", "**/public/*", "**/coverage/*"]),
+];
