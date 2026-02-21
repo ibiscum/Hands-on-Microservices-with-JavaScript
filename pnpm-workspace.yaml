@@ -1,6 +1,4 @@
 packages:
-  - ch03/*
-  - ch04/*
   - ch05/*
   - ch06/*
   - ch07/*
@@ -12,15 +10,8 @@ packages:
   - ch13/*
 
 onlyBuiltDependencies:
-  - '@nestjs/core'
   - '@parcel/watcher'
-  - '@prisma/engines'
-  - '@scarf/scarf'
   - core-js
   - cypress
   - esbuild
-  - node-rdkafka
   - nx
-  - prisma
-  - protobufjs
-  - unrs-resolver
