@@ -12,6 +12,9 @@ packages:
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - core-js
+  - cpu-features
   - cypress
   - esbuild
+  - node-rdkafka
   - nx
+  - ssh2
