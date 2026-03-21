@@ -47,8 +47,8 @@ importers:
         version: 9.2.1
     devDependencies:
       nodemon:
-        specifier: ^3.1.13
-        version: 3.1.13
+        specifier: ^3.1.14
+        version: 3.1.14
 
   ch06/transactionservice:
     dependencies:
@@ -498,7 +498,7 @@ importers:
         version: 11.7.5
       nodemon:
         specifier: ^3.1.11
-        version: 3.1.13
+        version: 3.1.14
       sinon:
         specifier: ^21.0.0
         version: 21.0.1
@@ -4009,6 +4009,11 @@ packages:
 
   nodemon@3.1.13:
     resolution: {integrity: sha512-nPN6L7A9cTA3BnJ3zZIibH5FiDh3GbmibeS17bl5YEU1IRO2mcfvR0ZJXH3ndoeKItjUcaX81FSKc/Kq/IiG6g==}
+    engines: {node: '>=10'}
+    hasBin: true
+
+  nodemon@3.1.14:
+    resolution: {integrity: sha512-jakjZi93UtB3jHMWsXL68FXSAosbLfY0In5gtKq3niLSkrWznrVBzXFNOEMJUfc9+Ke7SHWoAZsiMkNP3vq6Jw==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -9024,6 +9029,19 @@ snapshots:
   node-releases@2.0.27: {}
 
   nodemon@3.1.13:
+    dependencies:
+      chokidar: 3.6.0
+      debug: 4.4.3(supports-color@5.5.0)
+      ignore-by-default: 1.0.1
+      minimatch: 10.2.2
+      pstree.remy: 1.1.8
+      semver: 7.7.4
+      simple-update-notifier: 2.0.0
+      supports-color: 5.5.0
+      touch: 3.1.1
+      undefsafe: 2.0.5
+
+  nodemon@3.1.14:
     dependencies:
       chokidar: 3.6.0
       debug: 4.4.3(supports-color@5.5.0)
