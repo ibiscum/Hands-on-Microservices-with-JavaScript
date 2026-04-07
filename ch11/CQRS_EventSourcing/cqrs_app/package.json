@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@eventstore/db-client": "^6.2.1",
-    "@nestjs/common": "^11.1.9",
+    "@nestjs/common": "^11.1.18",
     "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.1.18",
     "@nestjs/cqrs": "^11.0.3",
