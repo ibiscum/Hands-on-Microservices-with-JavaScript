@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.16",
-    "@nestjs/schematics": "^11.0.9",
+    "@nestjs/schematics": "^11.0.10",
     "@nestjs/testing": "^11.1.9",
     "@nestjs/typeorm": "^11.0.0",
     "@types/express": "^5.0.6",
